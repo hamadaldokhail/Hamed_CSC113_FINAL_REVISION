@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSC 113 — Final Exam Study Guide</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f8f7f4;color:#1a1a18;line-height:1.6;font-size:15px}
+  .page{max-width:900px;margin:0 auto;padding:24px 20px 60px}
+  .header{text-align:center;padding:32px 0 24px;border-bottom:1px solid #e2e0d8}
+  .header h1{font-size:26px;font-weight:600;color:#1a1a18;letter-spacing:-0.3px}
+  .header p{color:#6b6b65;font-size:14px;margin-top:6px}
+  /* Tabs */
+  .tab-nav{display:flex;gap:6px;flex-wrap:wrap;padding:20px 0 0}
+  .tb{padding:7px 14px;border:1px solid #d4d2ca;border-radius:8px;background:#fff;cursor:pointer;font-size:13px;color:#6b6b65;font-family:inherit;transition:all .15s;font-weight:500}
+  .tb:hover{background:#f0efe9;border-color:#b8b6ae}
+  .tb.on{background:#1a1a18;color:#fff;border-color:#1a1a18}
+  .topic-tab{display:none}
+  .topic-tab.active{display:block}
+  /* Section headers */
+  h2{font-size:19px;font-weight:600;color:#1a1a18;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid #e2e0d8}
+  h3{font-size:15px;font-weight:600;color:#1a1a18;margin:20px 0 8px}
+  h4{font-size:14px;font-weight:600;color:#3d3d3a;margin:14px 0 6px}
+  p{font-size:14px;line-height:1.7;color:#3d3d3a;margin:6px 0}
+  ul,ol{padding-left:20px;margin:6px 0}
+  li{font-size:14px;line-height:1.8;color:#3d3d3a}
+  code{font-family:'SF Mono','Fira Code','Consolas',monospace;font-size:12.5px;background:#eceae3;padding:1px 5px;border-radius:4px;color:#1a1a18}
+  /* Code blocks */
+  .cb{background:#1e1e1c;border-radius:10px;padding:14px 16px;font-family:'SF Mono','Fira Code','Consolas',monospace;font-size:13px;line-height:1.8;white-space:pre;overflow-x:auto;margin:8px 0 12px;color:#ccc8bb}
+  .kw{color:#569cd6}
+  .cm{color:#6a9955;font-style:italic}
+  .st{color:#ce9178}
+  .nm{color:#b5cea8}
+  .cl{color:#4ec9b0}
+  .fn{color:#dcdcaa}
+  /* Callout boxes */
+  .tip{border-left:3px solid #e6931a;background:#fff8ee;border-radius:0 8px 8px 0;padding:10px 14px;margin:8px 0;font-size:13px;line-height:1.6}
+  .trap{border-left:3px solid #c0392b;background:#fef2f1;border-radius:0 8px 8px 0;padding:10px 14px;margin:8px 0;font-size:13px;line-height:1.6}
+  .rule{border-left:3px solid #2980b9;background:#eff6fd;border-radius:0 8px 8px 0;padding:10px 14px;margin:8px 0;font-size:13px;line-height:1.6}
+  .ok{border-left:3px solid #27ae60;background:#f0faf4;border-radius:0 8px 8px 0;padding:10px 14px;margin:8px 0;font-size:13px;line-height:1.6}
+  /* Grid */
+  .g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:8px 0}
+  .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:8px 0}
+  /* Cards */
+  .card{background:#fff;border:1px solid #e2e0d8;border-radius:10px;padding:14px 16px}
+  .card h4{margin-top:0}
+  /* Badges */
+  .badge{display:inline-block;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:600;letter-spacing:0.3px}
+  .bb{background:#dbeafe;color:#1d4ed8}
+  .br{background:#fee2e2;color:#b91c1c}
+  .bg{background:#dcfce7;color:#15803d}
+  .ba{background:#fef3c7;color:#b45309}
+  .bp{background:#f3e8ff;color:#7e22ce}
+  /* Summary hero */
+  .hero{background:#1a1a18;border-radius:12px;padding:18px 20px;margin:12px 0 20px;color:#f0efe9}
+  .hero p{color:#c2c0b6;font-size:13px;margin:0}
+  .hero h3{color:#fff;font-size:15px;margin:0 0 6px}
+  /* Trace box */
+  .trace-box{background:#fff;border:1px solid #e2e0d8;border-radius:10px;padding:14px 16px;margin:8px 0;font-family:'SF Mono','Fira Code','Consolas',monospace;font-size:13px}
+  .tr{display:flex;gap:10px;padding:4px 0;border-bottom:1px solid #f0efe9;align-items:baseline}
+  .tr:last-child{border-bottom:none}
+  .tr-base{background:#fef3c7;padding:2px 6px;border-radius:4px;border-left:3px solid #e6931a}
+  .tr-ret{background:#dcfce7;padding:2px 6px;border-radius:4px}
+  .rv{color:#16a34a;font-weight:600}
+  .i1{padding-left:16px}.i2{padding-left:32px}.i3{padding-left:48px}.i4{padding-left:64px}
+  .label{font-size:11px;font-weight:600;letter-spacing:0.5px;color:#9c9a92;margin:10px 0 4px;text-transform:uppercase}
+  /* Comparison table */
+  .ctable{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0}
+  .ctable th{background:#f0efe9;padding:8px 12px;text-align:left;font-weight:600;border:1px solid #e2e0d8}
+  .ctable td{padding:8px 12px;border:1px solid #e2e0d8;vertical-align:top;line-height:1.6}
+  .ctable tr:nth-child(even) td{background:#fafaf8}
+  /* Divider */
+  hr{border:none;border-top:1px solid #e2e0d8;margin:20px 0}
+  /* Print marker */
+  .output-box{background:#0d1117;border-radius:8px;padding:12px 16px;font-family:'SF Mono','Fira Code','Consolas',monospace;font-size:13px;line-height:1.8;margin:8px 0;color:#c9d1d9}
+  .out-line{display:block}
+  strong{font-weight:600}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="header">
+  <h1>Hamed's CSC 113 — Final Exam Revision</h1>
+  <p>All eight topics · Key rules · Tricky points · Tracing techniques · Based on midterm level</p>
+</div>
+
+<!-- TAB NAVIGATION -->
+<div class="tab-nav">
+  <button class="tb on" id="b1" onclick="sw(1)">1. Objects &amp; Methods</button>
+  <button class="tb" id="b2" onclick="sw(2)">2. Inheritance</button>
+  <button class="tb" id="b3" onclick="sw(3)">3. Polymorphism</button>
+  <button class="tb" id="b4" onclick="sw(4)">4. Interface</button>
+  <button class="tb" id="b5" onclick="sw(5)">5. Recursion</button>
+  <button class="tb" id="b6" onclick="sw(6)">6. Exception</button>
+  <button class="tb" id="b7" onclick="sw(7)">7. Files</button>
+  <button class="tb" id="b8" onclick="sw(8)">8. Linked List</button>
+</div>
+
+<!-- ═══════════════════════ TAB 1: OBJECTS & METHODS ═══════════════════════ -->
+<div id="t1" class="topic-tab active">
+
+<div class="hero" style="margin-top:20px">
+  <h3>Objects &amp; Methods — the foundation</h3>
+  <p>A <strong>class</strong> is a blueprint that defines attributes (fields) and behaviour (methods). An <strong>object</strong> is a live instance of that class created with <code>new</code>.</p>
+</div>
+
+<h2>Class structure</h2>
+<div class="cb"><span class="kw">public class</span> <span class="cl">Car</span> {
+
+    <span class="cm">// ─── Fields (attributes) ───</span>
+    <span class="kw">private</span> String brand;        <span class="cm">// instance field</span>
+    <span class="kw">private int</span> speed;
+    <span class="kw">private static int</span> count = <span class="nm">0</span>; <span class="cm">// static field — shared by ALL objects</span>
+
+    <span class="cm">// ─── No-arg constructor ───</span>
+    <span class="kw">public</span> <span class="fn">Car</span>() {
+        brand = <span class="st">"Unknown"</span>;
+        speed = <span class="nm">0</span>;
+        count++;
+    }
+
+    <span class="cm">// ─── Parameterised constructor ───</span>
+    <span class="kw">public</span> <span class="fn">Car</span>(String brand, <span class="kw">int</span> speed) {
+        <span class="kw">this</span>.brand = brand;   <span class="cm">// this.brand = instance field; brand = parameter</span>
+        <span class="kw">this</span>.speed = speed;
+        count++;
+    }
+
+    <span class="cm">// ─── Constructor chaining with this(...) ───</span>
+    <span class="kw">public</span> <span class="fn">Car</span>(String brand) {
+        <span class="kw">this</span>(brand, <span class="nm">0</span>);         <span class="cm">// MUST be first line — calls the 2-param constructor</span>
+    }
+
+    <span class="cm">// ─── Instance methods ───</span>
+    <span class="kw">public</span> String <span class="fn">getBrand</span>() { <span class="kw">return</span> brand; }
+
+    <span class="cm">// ─── Static method ───</span>
+    <span class="kw">public static int</span> <span class="fn">getCount</span>() { <span class="kw">return</span> count; }
+
+    <span class="cm">// ─── Method overloading ───</span>
+    <span class="kw">public</span> String <span class="fn">info</span>()              { <span class="kw">return</span> brand; }
+    <span class="kw">public</span> String <span class="fn">info</span>(String prefix) { <span class="kw">return</span> prefix + brand; }
+}</div>
+
+<h2>Access modifiers</h2>
+<table class="ctable">
+  <tr><th>Modifier</th><th>Same class</th><th>Subclass</th><th>Other classes</th><th>Usage</th></tr>
+  <tr><td><code>private</code></td><td>✅</td><td>❌</td><td>❌</td><td>Fields (encapsulation)</td></tr>
+  <tr><td><code>protected</code></td><td>✅</td><td>✅</td><td>❌</td><td>Fields subclasses need</td></tr>
+  <tr><td><code>public</code></td><td>✅</td><td>✅</td><td>✅</td><td>Methods, constructors</td></tr>
+  <tr><td>(default)</td><td>✅</td><td>❌</td><td>Same package only</td><td>Rare in exams</td></tr>
+</table>
+
+<h2>The <code>this</code> keyword — 3 uses</h2>
+<div class="g3">
+  <div class="card">
+    <span class="badge bb">Use 1</span>
+    <h4>Refer to instance field</h4>
+    <div class="cb" style="font-size:12px"><span class="kw">this</span>.name = name;
+<span class="cm">// distinguishes field from param</span></div>
+  </div>
+  <div class="card">
+    <span class="badge bb">Use 2</span>
+    <h4>Call another constructor</h4>
+    <div class="cb" style="font-size:12px"><span class="kw">this</span>(<span class="st">"Bob"</span>, <span class="nm">20</span>);
+<span class="cm">// MUST be first line</span></div>
+  </div>
+  <div class="card">
+    <span class="badge bb">Use 3</span>
+    <h4>Pass current object</h4>
+    <div class="cb" style="font-size:12px">Shape s = <span class="kw">this</span>;
+<span class="cm">// pass self as argument</span></div>
+  </div>
+</div>
+
+<h2>Static vs instance — know the difference</h2>
+<div class="g2">
+  <div class="card">
+    <span class="badge br">Instance member</span>
+    <ul style="margin-top:10px">
+      <li>One copy <strong>per object</strong></li>
+      <li>Access: <code>object.field</code></li>
+      <li>Can use <code>this</code></li>
+      <li>Example: <code>car.brand</code></li>
+    </ul>
+  </div>
+  <div class="card">
+    <span class="badge bb">Static member</span>
+    <ul style="margin-top:10px">
+      <li>One copy <strong>shared by all</strong></li>
+      <li>Access: <code>ClassName.field</code></li>
+      <li>Cannot use <code>this</code></li>
+      <li>Example: <code>Car.count</code></li>
+    </ul>
+  </div>
+</div>
+
+<div class="trap"><strong>🚫 Trap — static method accessing instance member:</strong><br>
+A <code>static</code> method cannot directly call instance methods or access instance fields. You must create an object first.<br>
+<code>public static void main(...) { brand = "X"; }</code> → ❌ compile error<br>
+<code>public static void main(...) { Car c = new Car(); c.brand = "X"; }</code> → ✅</div>
+
+<h2>Method overloading</h2>
+<div class="cb"><span class="cm">// Same name, different parameter list — resolved at COMPILE TIME</span>
+<span class="kw">public void</span> <span class="fn">print</span>()                 { ... }
+<span class="kw">public void</span> <span class="fn">print</span>(String s)         { ... }
+<span class="kw">public void</span> <span class="fn">print</span>(<span class="kw">int</span> x, <span class="kw">int</span> y)    { ... }
+
+<span class="cm">// DOES NOT count as overloading — return type alone doesn't distinguish!</span>
+<span class="kw">public int</span>  <span class="fn">getValue</span>() { ... }
+<span class="kw">public void</span> <span class="fn">getValue</span>() { ... }  <span class="cm">// ← COMPILE ERROR</span></div>
+
+<h2>Exam traps &amp; key rules</h2>
+
+<div class="trap"><strong>🚫 Trap 1 — default constructor disappears:</strong><br>
+If you define ANY constructor, Java no longer provides the default no-arg constructor. If other code calls <code>new MyClass()</code> and you only wrote <code>MyClass(int x)</code> → compile error.</div>
+
+<div class="trap"><strong>🚫 Trap 2 — <code>this(...)</code> must be first:</strong><br>
+Constructor chaining with <code>this(...)</code> must be the very first statement. Same for <code>super(...)</code>. You cannot have both in the same constructor.</div>
+
+<div class="trap"><strong>🚫 Trap 3 — <code>name = name</code> does nothing:</strong><br>
+Inside a constructor, <code>name = name</code> assigns the local parameter back to itself. Always use <code>this.name = name</code> to set the instance field.</div>
+
+<div class="tip"><strong>💡 Exam tip — tracing constructors:</strong><br>
+When asked for output, trace EVERY constructor call in order. Watch for <code>this(...)</code> chains — execution jumps to the other constructor and runs it completely before returning.</div>
+
+</div><!-- end t1 -->
+
+<!-- ═══════════════════════ TAB 2: INHERITANCE ═══════════════════════ -->
+<div id="t2" class="topic-tab">
+
+<div class="hero" style="margin-top:20px">
+  <h3>Inheritance — IS-A relationship</h3>
+  <p>A subclass <strong>inherits</strong> non-private members from its superclass and can <strong>override</strong> methods to provide specialised behaviour. Keyword: <code>extends</code>.</p>
+</div>
+
+<h2>Syntax &amp; constructor chaining</h2>
+<div class="cb"><span class="kw">public class</span> <span class="cl">Shape</span> {
+    <span class="kw">protected</span> String name;
+    <span class="kw">protected</span> String color;
+
+    <span class="kw">public</span> <span class="fn">Shape</span>() {
+        name = <span class="st">"I am a Shape"</span>; color = <span class="st">"White"</span>;
+        System.out.<span class="fn">println</span>(name + <span class="st">" -- "</span> + color);
+    }
+    <span class="kw">public</span> <span class="fn">Shape</span>(String a, String b) {
+        name = a; color = b;
+        System.out.<span class="fn">println</span>(name + <span class="st">" -- "</span> + color);
+    }
+}
+
+<span class="kw">public class</span> <span class="cl">Rectangle</span> <span class="kw">extends</span> <span class="cl">Shape</span> {
+    <span class="kw">private</span> String name;    <span class="cm">// ← HIDES Shape.name (separate field!)</span>
+    <span class="kw">private double</span> length, width;
+
+    <span class="kw">public</span> <span class="fn">Rectangle</span>() {                         <span class="cm">// no super() → Java inserts super() automatically</span>
+        name = <span class="st">"I am a Rectangle"</span>; color = <span class="st">"Blue"</span>;  <span class="cm">// color comes from Shape (protected)</span>
+        length = <span class="nm">2.0</span>; width = <span class="nm">1.0</span>;
+        System.out.<span class="fn">println</span>(name + <span class="st">" -- "</span> + color + <span class="st">" -- "</span> + length + <span class="st">" -- "</span> + width);
+    }
+
+    <span class="kw">public</span> <span class="fn">Rectangle</span>(<span class="kw">double</span> l, <span class="kw">double</span> w) {
+        <span class="kw">this</span>(<span class="st">"I am Rectangle"</span>, <span class="st">"Green"</span>, l, w);    <span class="cm">// chains to 4-param constructor</span>
+    }
+
+    <span class="kw">public</span> <span class="fn">Rectangle</span>(String a, String b, <span class="kw">double</span> l, <span class="kw">double</span> w) {
+        <span class="kw">super</span>(a, b);                               <span class="cm">// calls Shape(String, String)</span>
+        name = a; color = b;
+        length = l; width = w;
+        System.out.<span class="fn">println</span>(name + <span class="st">" -- "</span> + color + <span class="st">" -- "</span> + length + <span class="st">" -- "</span> + width);
+    }
+}</div>
+
+<h2>Constructor call order — <code>new Rectangle()</code> traced</h2>
+<div class="trace-box">
+  <div class="label">Execution order for new Rectangle()</div>
+  <div class="tr"><span class="i1">1.</span> <span>Rectangle() no-arg is called</span></div>
+  <div class="tr"><span class="i2">2.</span> <span>No <code>super()</code> written → Java auto-inserts <code>super()</code> → Shape() no-arg runs</span></div>
+  <div class="tr tr-base"><span class="i3">3. PRINT:</span> <span class="rv">"I am a Shape -- White"</span> &nbsp;← Shape() output</div>
+  <div class="tr"><span class="i2">4.</span> <span>Control returns to Rectangle() — continues execution</span></div>
+  <div class="tr tr-base"><span class="i2">5. PRINT:</span> <span class="rv">"I am a Rectangle -- Blue -- 2.0 -- 1.0"</span> &nbsp;← Rectangle() output</div>
+</div>
+
+<h2>What is inherited? What is not?</h2>
+<table class="ctable">
+  <tr><th>Member type</th><th>Inherited?</th><th>Notes</th></tr>
+  <tr><td><code>public</code> methods &amp; fields</td><td>✅ Yes</td><td>Directly accessible in subclass</td></tr>
+  <tr><td><code>protected</code> methods &amp; fields</td><td>✅ Yes</td><td>Accessible in subclass and same package</td></tr>
+  <tr><td><code>private</code> methods &amp; fields</td><td>❌ No</td><td>Exist in object but not directly accessible</td></tr>
+  <tr><td>Constructors</td><td>❌ No</td><td>Must call via <code>super(...)</code></td></tr>
+</table>
+
+<h2>Hidden fields — the biggest midterm trap</h2>
+<div class="cb"><span class="kw">public class</span> <span class="cl">Shape</span>     { <span class="kw">protected</span> String name = <span class="st">"Shape"</span>; }
+<span class="kw">public class</span> <span class="cl">Rectangle</span> <span class="kw">extends</span> <span class="cl">Shape</span> {
+    <span class="kw">private</span> String name = <span class="st">"Rectangle"</span>;  <span class="cm">// new field — HIDES Shape.name</span>
+}
+
+<span class="cm">// Inside Rectangle methods:</span>
+<span class="cm">//   this.name       → "Rectangle"  (Rectangle's own field)</span>
+<span class="cm">//   super.to_String() → uses Shape's 'name' field → "Shape"</span>
+
+<span class="cm">// Shape s = rectangle_object;</span>
+<span class="cm">//   s.name          → "Shape"      (reference type = Shape, field binding is static)</span>
+<span class="cm">//   s.to_String()   → Rectangle's version (method = dynamic dispatch)</span></div>
+
+<div class="trap"><strong>🚫 Critical — hidden fields vs overridden methods:</strong><br>
+<strong>Fields are HIDDEN</strong> — each class keeps its own copy. <code>s.name</code> where <code>s</code> is of type <code>Shape</code> always gives Shape's <code>name</code>, even if the actual object is a Rectangle.<br>
+<strong>Methods are OVERRIDDEN</strong> — only one version exists at runtime, always the most derived one.<br>
+This asymmetry is the KEY to solving Q1 of the midterm.</div>
+
+<h2>Method overriding rules</h2>
+<ul>
+  <li>Same method name, same parameter list, same (or covariant) return type</li>
+  <li>Cannot make access more restrictive: if parent's method is <code>public</code>, override must also be <code>public</code></li>
+  <li>Use <code>super.method()</code> inside the override to call the parent's version</li>
+  <li><code>@Override</code> annotation is optional but recommended — causes a compile error if the signature doesn't actually match</li>
+</ul>
+
+<div class="cb"><span class="kw">public</span> String <span class="fn">to_String</span>() {
+    String s = <span class="kw">super</span>.<span class="fn">to_String</span>();  <span class="cm">// calls Shape.to_String() — uses Shape's fields</span>
+    s += <span class="st">"\n &lt;L = "</span> + length + <span class="st">", W = "</span> + width + <span class="st">"&gt;"</span>;
+    <span class="kw">return</span> s;
+}</div>
+
+<h2>Exam traps</h2>
+<div class="trap"><strong>🚫 Trap 1 — missing no-arg parent constructor:</strong><br>
+If the parent class has a parameterised constructor but no no-arg constructor, and the subclass constructor doesn't call <code>super(args)</code> explicitly, Java tries to insert <code>super()</code> → compile error because no-arg Shape() doesn't exist.</div>
+
+<div class="trap"><strong>🚫 Trap 2 — <code>super()</code> must be first:</strong><br>
+Just like <code>this(...)</code>, <code>super(...)</code> must be the absolute first statement in any subclass constructor. No code can run before it.</div>
+
+<div class="tip"><strong>💡 Tracing tip:</strong><br>
+When tracing inheritance output, always follow the constructor chain from the top. Draw a stack: each constructor call pushes, each return pops. Print statements happen in the order the code executes top-to-bottom within each constructor.</div>
+
+</div><!-- end t2 -->
+
+<!-- ═══════════════════════ TAB 3: POLYMORPHISM ═══════════════════════ -->
+<div id="t3" class="topic-tab">
+
+<div class="hero" style="margin-top:20px">
+  <h3>Polymorphism — same call, different behaviour</h3>
+  <p>The ability of a method call to behave differently based on the actual runtime object type. There are two kinds: <strong>runtime polymorphism</strong> (method overriding) and <strong>compile-time polymorphism</strong> (method overloading).</p>
+</div>
+
+<h2>The golden rule — THE most important concept</h2>
+<div class="g2">
+  <div class="card" style="border:2px solid #c0392b">
+    <span class="badge br">Fields → reference type (static)</span>
+    <p style="margin-top:8px;font-size:13px">Field access is decided at <strong>compile time</strong> based on the <strong>declared type</strong> of the variable — NOT what object it actually holds.</p>
+    <div class="cb" style="font-size:12px;margin-top:8px">Shape s = <span class="kw">new</span> Rectangle();
+s.name <span class="cm">// → Shape's name field</span></div>
+  </div>
+  <div class="card" style="border:2px solid #27ae60">
+    <span class="badge bg">Methods → actual object type (dynamic)</span>
+    <p style="margin-top:8px;font-size:13px">Method calls are resolved at <strong>runtime</strong> based on the <strong>actual object</strong> stored in the variable.</p>
+    <div class="cb" style="font-size:12px;margin-top:8px">Shape s = <span class="kw">new</span> Rectangle();
+s.to_String() <span class="cm">// → Rectangle's version</span></div>
+  </div>
+</div>
+
+<h2>Direct midterm Q1 trace — <code>display()</code> method</h2>
+<div class="cb"><span class="kw">public void</span> <span class="fn">display</span>() {
+    System.out.<span class="fn">println</span>(name + <span class="st">" -- "</span> + <span class="fn">to_String</span>());
+    <span class="cm">//               ↑ Rectangle's name    ↑ Rectangle's to_String() (called on this = Rectangle)</span>
+    Shape s = <span class="kw">this</span>;
+    System.out.<span class="fn">println</span>(s.name + <span class="st">" -- "</span> + s.<span class="fn">to_String</span>());
+    <span class="cm">//               ↑ Shape's name        ↑ Still Rectangle's to_String()!</span>
+}
+<span class="cm">// s is declared as Shape → field s.name uses Shape's name (static binding)</span>
+<span class="cm">// But the actual object is Rectangle → s.to_String() calls Rectangle's override (dynamic)</span></div>
+
+<div class="trace-box">
+  <div class="label">Output of display() when called on new Rectangle()</div>
+  <div class="tr"><span>Line 1:</span> <span class="rv">"I am a Rectangle -- [I am a Shape -- Blue]&lt;newline&gt;  &lt;L = 2.0, W = 1.0&gt;"</span></div>
+  <div class="tr"><span style="color:#6b6b65;font-size:12px">→ name = Rectangle's own name = "I am a Rectangle"</span></div>
+  <div class="tr"><span style="color:#6b6b65;font-size:12px">→ to_String() = Rectangle's version → calls super.to_String() (uses Shape.name="I am a Shape", Shape.color="Blue")</span></div>
+  <div class="tr" style="margin-top:8px"><span>Line 2:</span> <span class="rv">"I am a Shape -- [I am a Shape -- Blue]&lt;newline&gt;  &lt;L = 2.0, W = 1.0&gt;"</span></div>
+  <div class="tr"><span style="color:#6b6b65;font-size:12px">→ s.name = Shape's name = "I am a Shape" (reference type = Shape → static binding)</span></div>
+  <div class="tr"><span style="color:#6b6b65;font-size:12px">→ s.to_String() = Rectangle's version (actual object = Rectangle → dynamic dispatch)</span></div>
+</div>
+
+<h2>Upcasting &amp; downcasting</h2>
+<div class="cb"><span class="cm">// Upcasting — always safe, implicit (subclass IS-A superclass)</span>
+Shape s = <span class="kw">new</span> Rectangle(<span class="nm">3.0</span>, <span class="nm">2.0</span>);  <span class="cm">// OK — Rectangle IS-A Shape</span>
+
+<span class="cm">// Downcasting — explicit, may throw ClassCastException at runtime</span>
+Rectangle r = (Rectangle) s;           <span class="cm">// safe here because s really IS a Rectangle</span>
+
+<span class="cm">// Calling a subclass-only method on superclass ref → compile error without cast</span>
+s.getArea();          <span class="cm">// ❌ if getArea() is not in Shape</span>
+((Rectangle)s).getArea();  <span class="cm">// ✅ cast first</span>
+
+<span class="cm">// Safe downcasting pattern</span>
+<span class="kw">if</span> (s <span class="kw">instanceof</span> Rectangle) {
+    Rectangle r2 = (Rectangle) s;  <span class="cm">// guaranteed safe</span>
+}</span></div>
+
+<h2>Compile-time vs runtime polymorphism</h2>
+<table class="ctable">
+  <tr><th></th><th>Compile-time (overloading)</th><th>Runtime (overriding)</th></tr>
+  <tr><td>Where?</td><td>Same class</td><td>Subclass overrides parent</td></tr>
+  <tr><td>How resolved?</td><td>By parameter types at compile time</td><td>By actual object type at runtime</td></tr>
+  <tr><td>Also called</td><td>Static binding</td><td>Dynamic binding / dispatch</td></tr>
+  <tr><td>Example</td><td><code>print()</code> vs <code>print(String)</code></td><td>Rectangle's <code>to_String()</code> vs Shape's</td></tr>
+</table>
+
+<h2>Exam traps</h2>
+<div class="trap"><strong>🚫 Trap 1 — calling subclass-only method via superclass reference:</strong><br>
+<code>Shape s = new Rectangle(); s.display();</code> → compile error if <code>display()</code> is only defined in Rectangle. The compiler only knows <code>s</code> is of type Shape.</div>
+
+<div class="trap"><strong>🚫 Trap 2 — ClassCastException at runtime:</strong><br>
+<code>Shape s = new Shape(); Rectangle r = (Rectangle) s;</code> compiles fine but crashes at runtime. Always use <code>instanceof</code> before casting.</div>
+
+<div class="trap"><strong>🚫 Trap 3 — field access is NEVER polymorphic:</strong><br>
+Even if both parent and child have a field with the same name, field access always uses the declared reference type. This is the core of Q1 in the midterm.</div>
+
+<div class="tip"><strong>💡 Quick test when tracing:</strong><br>
+For every expression involving a reference variable, ask:<br>
+• Is it a <strong>field access</strong>? → Use the <strong>declared type</strong> of the variable.<br>
+• Is it a <strong>method call</strong>? → Use the <strong>actual runtime object</strong> type.</div>
+
+</div><!-- end t3 -->
+
+<!-- ═══════════════════════ TAB 4: INTERFACE ═══════════════════════ -->
+<div id="t4" class="topic-tab">
+
+<div class="hero" style="margin-top:20px">
+  <h3>Interface — a pure contract</h3>
+  <p>An interface defines a set of method signatures that any implementing class must provide. It cannot have constructors or instance state. It represents a <em>can-do</em> relationship (a Light <em>can</em> be controlled).</p>
+</div>
+
+<h2>Interface syntax</h2>
+<div class="cb"><span class="kw">public interface</span> <span class="cl">Controllable</span> {
+    <span class="cm">// All methods are implicitly: public abstract</span>
+    <span class="kw">public void</span>    <span class="fn">turnOn</span>();
+    <span class="kw">public void</span>    <span class="fn">turnOff</span>();
+    <span class="kw">public boolean</span> <span class="fn">isOn</span>();
+
+    <span class="cm">// Fields in interface are implicitly: public static final</span>
+    <span class="kw">int</span> MAX_DEVICES = <span class="nm">10</span>;  <span class="cm">// really: public static final int MAX_DEVICES = 10;</span>
+}</div>
+
+<h2>Midterm Q2 — the exact pattern you must know</h2>
+<div class="cb"><span class="cm">// Step 1 — Interface defines the contract</span>
+<span class="kw">public interface</span> <span class="cl">Controllable</span> {
+    <span class="kw">void</span> <span class="fn">turnOn</span>();
+    <span class="kw">void</span> <span class="fn">turnOff</span>();
+    <span class="kw">boolean</span> <span class="fn">isOn</span>();
+}
+
+<span class="cm">// Step 2 — Abstract class PARTIALLY implements interface</span>
+<span class="kw">public abstract class</span> <span class="cl">SmartDevice</span> <span class="kw">implements</span> <span class="cl">Controllable</span> {
+    <span class="kw">private</span> String name;
+    <span class="kw">protected boolean</span> on;      <span class="cm">// protected so subclasses can access directly</span>
+
+    <span class="kw">public</span> <span class="fn">SmartDevice</span>(String name, <span class="kw">boolean</span> on) {
+        <span class="kw">this</span>.name = name; <span class="kw">this</span>.on = on;
+    }
+
+    <span class="kw">public boolean</span> <span class="fn">isOn</span>()    { <span class="kw">return</span> on; }         <span class="cm">// ✅ implements isOn()</span>
+    <span class="kw">public void</span>    <span class="fn">turnOff</span>() { on = <span class="kw">false</span>; }         <span class="cm">// ✅ implements turnOff()</span>
+    <span class="cm">// turnOn() NOT here → subclasses must provide it</span>
+
+    <span class="kw">public void</span> <span class="fn">displayStatus</span>() {
+        System.out.<span class="fn">println</span>(<span class="st">"Name: "</span> + name + <span class="st">" -- On: "</span> + on);
+    }
+}
+
+<span class="cm">// Step 3 — Concrete class provides the remaining method</span>
+<span class="kw">public class</span> <span class="cl">Light</span> <span class="kw">extends</span> <span class="cl">SmartDevice</span> {
+    <span class="kw">private int</span> brightness;
+
+    <span class="kw">public</span> <span class="fn">Light</span>(String name, <span class="kw">boolean</span> on, <span class="kw">int</span> b) {
+        <span class="kw">super</span>(name, on);    <span class="cm">// calls SmartDevice constructor</span>
+        brightness = b;
+    }
+    <span class="kw">public void</span> <span class="fn">turnOn</span>() { <span class="cm">// ✅ provides missing turnOn()</span>
+        on = <span class="kw">true</span>; brightness = <span class="nm">5</span>;
+    }
+    <span class="kw">public void</span> <span class="fn">displayStatus</span>() {
+        <span class="kw">super</span>.<span class="fn">displayStatus</span>();   <span class="cm">// calls SmartDevice's version first</span>
+        System.out.<span class="fn">println</span>(<span class="st">"Brightness: "</span> + brightness);
+    }
+}</div>
+
+<h2>Interface vs abstract class — comparison</h2>
+<table class="ctable">
+  <tr><th>Feature</th><th>Interface</th><th>Abstract class</th></tr>
+  <tr><td>Constructor</td><td>❌ None</td><td>✅ Can have</td></tr>
+  <tr><td>Instance fields</td><td>❌ None (only static final)</td><td>✅ Can have</td></tr>
+  <tr><td>Method body</td><td>❌ Not allowed (Java 7)</td><td>✅ Can have concrete methods</td></tr>
+  <tr><td>Instantiate directly</td><td>❌ <code>new Interface()</code> is error</td><td>❌ <code>new Abstract()</code> is error</td></tr>
+  <tr><td>A class can use</td><td>Multiple: <code>implements A, B, C</code></td><td>One only: <code>extends A</code></td></tr>
+  <tr><td>Access modifiers</td><td>Methods only <code>public</code></td><td>Any modifier allowed</td></tr>
+  <tr><td>Keyword</td><td><code>implements</code></td><td><code>extends</code></td></tr>
+</table>
+
+<h2>Interface as a reference type</h2>
+<div class="cb"><span class="cm">// Interface can be used as a reference type (polymorphism)</span>
+Controllable c = <span class="kw">new</span> Light(<span class="st">"Lamp"</span>, <span class="kw">true</span>, <span class="nm">7</span>);
+
+c.<span class="fn">turnOn</span>();          <span class="cm">// ✅ turnOn() is declared in Controllable</span>
+c.<span class="fn">isOn</span>();           <span class="cm">// ✅ isOn() is declared in Controllable</span>
+c.<span class="fn">getBrightness</span>();  <span class="cm">// ❌ compile error — not in Controllable interface!</span>
+
+<span class="cm">// Must cast to access subclass-specific methods</span>
+((Light) c).<span class="fn">getBrightness</span>();  <span class="cm">// ✅</span>
+
+<span class="cm">// Multiple interfaces</span>
+<span class="kw">public class</span> <span class="cl">SmartSpeaker</span> <span class="kw">implements</span> Controllable, Playable {
+    <span class="cm">// Must implement ALL methods from BOTH interfaces</span>
+}</div>
+
+<h2>Exam traps</h2>
+<div class="trap"><strong>🚫 Trap 1 — interface cannot be instantiated:</strong><br>
+<code>new Controllable()</code> → compile error. You can only instantiate a concrete class, then store the object in an interface reference.</div>
+
+<div class="trap"><strong>🚫 Trap 2 — abstract class doesn't finish implementing:</strong><br>
+If an abstract class implements an interface but leaves some methods out, the <strong>first non-abstract subclass</strong> must implement ALL remaining methods — or it won't compile.</div>
+
+<div class="trap"><strong>🚫 Trap 3 — overriding interface methods must be public:</strong><br>
+Interface methods are implicitly <code>public</code>. If you try to implement one as <code>protected</code> or package-private in your class → compile error (you cannot reduce visibility).</div>
+
+<div class="tip"><strong>💡 Exam pattern — UML to code:</strong><br>
+Given a UML with a dashed arrow (interface) and solid arrow (extends):<br>
+1. Write the interface with its method signatures<br>
+2. Abstract class: <code>public abstract class X implements Interface</code> — implement what you can<br>
+3. Concrete subclass: <code>extends AbstractClass</code> — implement the remaining interface methods</div>
+
+</div><!-- end t4 -->
+
+<!-- ═══════════════════════ TAB 5: RECURSION ═══════════════════════ -->
+<div id="t5" class="topic-tab">
+
+<div class="hero" style="margin-top:20px">
+  <h3>Recursion — a method that calls itself</h3>
+  <p>Solves a problem by breaking it into smaller subproblems of the <strong>same type</strong>. Must have a <strong>base case</strong> (stops it) and a <strong>recursive case</strong> (moves toward it).</p>
+</div>
+
+<h2>General structure — always start here</h2>
+<div class="cb"><span class="kw">static</span> ReturnType <span class="fn">method</span>(<span class="kw">type</span> n) {
+    <span class="kw">if</span> (/* base case condition */) {
+        <span class="kw">return</span> /* direct value */;      <span class="cm">// ← STOP here, no recursive call</span>
+    }
+    <span class="cm">// recursive case: n must get CLOSER to base case</span>
+    <span class="kw">return</span> /* combine */ + <span class="fn">method</span>(/* smaller n */);
+}</div>
+
+<h2>6 common patterns — know all of them</h2>
+
+<h3>Pattern 1 — Factorial (n! = n × (n−1) × … × 1)</h3>
+<div class="cb"><span class="kw">static int</span> <span class="fn">factorial</span>(<span class="kw">int</span> n) {
+    <span class="kw">if</span> (n == <span class="nm">0</span>) <span class="kw">return</span> <span class="nm">1</span>;              <span class="cm">// base: 0! = 1</span>
+    <span class="kw">return</span> n * <span class="fn">factorial</span>(n - <span class="nm">1</span>);       <span class="cm">// n! = n × (n−1)!</span>
+}</div>
+
+<h3>Pattern 2 — Sum of digits</h3>
+<div class="cb"><span class="kw">static int</span> <span class="fn">sumDigits</span>(<span class="kw">int</span> n) {
+    <span class="kw">if</span> (n < <span class="nm">10</span>) <span class="kw">return</span> n;              <span class="cm">// base: single digit, return it</span>
+    <span class="kw">return</span> n % <span class="nm">10</span> + <span class="fn">sumDigits</span>(n / <span class="nm">10</span>); <span class="cm">// last digit + sum of rest</span>
+}
+<span class="cm">// sumDigits(253) → 3 + sumDigits(25) → 3+5+sumDigits(2) → 3+5+2 = 10</span></div>
+
+<h3>Pattern 3 — Power (x^n)</h3>
+<div class="cb"><span class="kw">static double</span> <span class="fn">power</span>(<span class="kw">double</span> x, <span class="kw">int</span> n) {
+    <span class="kw">if</span> (n == <span class="nm">0</span>) <span class="kw">return</span> <span class="nm">1</span>;              <span class="cm">// base: x^0 = 1</span>
+    <span class="kw">return</span> x * <span class="fn">power</span>(x, n - <span class="nm">1</span>);        <span class="cm">// x^n = x × x^(n−1)</span>
+}</div>
+
+<h3>Pattern 4 — Count occurrences in array</h3>
+<div class="cb"><span class="kw">static int</span> <span class="fn">count</span>(<span class="kw">int</span>[] arr, <span class="kw">int</span> n, <span class="kw">int</span> val) {
+    <span class="kw">if</span> (n == <span class="nm">0</span>) <span class="kw">return</span> <span class="nm">0</span>;              <span class="cm">// base: empty array, 0 occurrences</span>
+    <span class="kw">return</span> (arr[n-<span class="nm">1</span>] == val ? <span class="nm">1</span> : <span class="nm">0</span>) + <span class="fn">count</span>(arr, n-<span class="nm">1</span>, val);
+    <span class="cm">// check last element, then count in remaining n-1 elements</span>
+}
+<span class="cm">// n is the number of elements to look at (start with arr.length)</span></div>
+
+<h3>Pattern 5 — Fibonacci (tree recursion — two calls)</h3>
+<div class="cb"><span class="kw">static int</span> <span class="fn">fib</span>(<span class="kw">int</span> n) {
+    <span class="kw">if</span> (n <= <span class="nm">1</span>) <span class="kw">return</span> n;              <span class="cm">// base: fib(0)=0, fib(1)=1</span>
+    <span class="kw">return</span> <span class="fn">fib</span>(n - <span class="nm">1</span>) + <span class="fn">fib</span>(n - <span class="nm">2</span>);   <span class="cm">// TWO recursive calls → creates a TREE</span>
+}
+<span class="cm">// fib(4) = fib(3)+fib(2) = (fib(2)+fib(1))+(fib(1)+fib(0))</span>
+<span class="cm">// = ((fib(1)+fib(0))+1)+(1+0) = ((1+0)+1)+(1+0) = 3</span></div>
+
+<h3>Pattern 6 — Print order (before vs after recursive call)</h3>
+<div class="g2">
+  <div>
+    <div class="badge br" style="margin-bottom:6px">Print BEFORE → last-digit-first</div>
+    <div class="cb"><span class="kw">static void</span> <span class="fn">printLast</span>(<span class="kw">int</span> n) {
+    <span class="kw">if</span> (n == <span class="nm">0</span>) <span class="kw">return</span>;
+    System.out.<span class="fn">print</span>(n % <span class="nm">10</span>); <span class="cm">// print</span>
+    <span class="fn">printLast</span>(n / <span class="nm">10</span>);          <span class="cm">// recurse</span>
+}
+<span class="cm">// n=123 → prints: 3 2 1</span></div>
+  </div>
+  <div>
+    <div class="badge bg" style="margin-bottom:6px">Print AFTER → first-digit-first</div>
+    <div class="cb"><span class="kw">static void</span> <span class="fn">printFirst</span>(<span class="kw">int</span> n) {
+    <span class="kw">if</span> (n == <span class="nm">0</span>) <span class="kw">return</span>;
+    <span class="fn">printFirst</span>(n / <span class="nm">10</span>);         <span class="cm">// recurse</span>
+    System.out.<span class="fn">print</span>(n % <span class="nm">10</span>); <span class="cm">// print</span>
+}
+<span class="cm">// n=123 → prints: 1 2 3</span></div>
+  </div>
+</div>
+<div class="rule"><strong>Why?</strong> Print before recurse → current call does work first, then goes deeper (top-down). Print after recurse → goes all the way to base case first, then works back up (bottom-up). The stack unwinds, so printing happens in reverse order of the calls.</div>
+
+<h2>Tracing technique — the 3-step method</h2>
+<p>For any "what is the output/return value?" question:</p>
+<ol>
+  <li><strong>Unwind:</strong> Write each call, substituting the argument, until base case.</li>
+  <li><strong>Mark base case:</strong> This is the first concrete value you know.</li>
+  <li><strong>Fold back up:</strong> Substitute return values upward, computing each level.</li>
+</ol>
+
+<h3>Worked trace — factorial(4)</h3>
+<div class="trace-box">
+  <div class="label">↓ Unwinding (calls build up on the call stack)</div>
+  <div class="tr">factorial(4) = 4 × factorial(3) = ?</div>
+  <div class="tr i1">factorial(3) = 3 × factorial(2) = ?</div>
+  <div class="tr i2">factorial(2) = 2 × factorial(1) = ?</div>
+  <div class="tr i3">factorial(1) = 1 × factorial(0) = ?</div>
+  <div class="tr i4 tr-base">factorial(0) = <span class="rv">1</span> &nbsp;&nbsp;← BASE CASE — first known value</div>
+  <div class="label" style="margin-top:12px">↑ Folding back up (computing return values)</div>
+  <div class="tr i3">factorial(1) = 1 × <span class="rv">1</span> = <span class="rv">1</span></div>
+  <div class="tr i2">factorial(2) = 2 × <span class="rv">1</span> = <span class="rv">2</span></div>
+  <div class="tr i1">factorial(3) = 3 × <span class="rv">2</span> = <span class="rv">6</span></div>
+  <div class="tr" style="font-weight:600">factorial(4) = 4 × <span class="rv">6</span> = <span class="rv" style="font-size:15px">24</span> &nbsp;← final answer</div>
+</div>
+
+<h2>"Mystery function" — exam favourite</h2>
+<p>Given an unknown function, trace it and figure out what it computes:</p>
+<div class="cb"><span class="kw">static int</span> <span class="fn">mystery</span>(<span class="kw">int</span> n) {
+    <span class="kw">if</span> (n == <span class="nm">0</span>) <span class="kw">return</span> <span class="nm">0</span>;
+    <span class="kw">return</span> <span class="fn">mystery</span>(n / <span class="nm">10</span>) + n % <span class="nm">10</span>;
+}
+<span class="cm">// Trace mystery(253):</span>
+<span class="cm">// mystery(253) → mystery(25) + 3</span>
+<span class="cm">// mystery(25)  → mystery(2)  + 5</span>
+<span class="cm">// mystery(2)   → mystery(0)  + 2</span>
+<span class="cm">// mystery(0)   → 0           ← base</span>
+<span class="cm">// Fold: 0+2+5+3 = 10  → computes SUM OF DIGITS</span></div>
+
+<h2>Exam traps</h2>
+<div class="trap"><strong>🚫 Trap 1 — StackOverflowError:</strong><br>
+If the base case is never reached (wrong condition, or recursive call doesn't shrink toward it), Java throws <code>StackOverflowError</code>. Always verify: does every recursive call make <em>n</em> smaller/simpler?</div>
+
+<div class="trap"><strong>🚫 Trap 2 — off-by-one in base case:</strong><br>
+<code>if (n == 1)</code> instead of <code>if (n &lt;= 1)</code> will fail for <code>n=0</code> or negative values. Always think: what is the very smallest/simplest valid input?</div>
+
+<div class="trap"><strong>🚫 Trap 3 — tree recursion call count:</strong><br>
+For functions with <strong>two recursive calls</strong> (Fibonacci), counting calls is exponential — do NOT count linearly. Draw the tree:<br>
+fib(4) generates: fib(3)+fib(2) = (fib(2)+fib(1))+(fib(1)+fib(0)) = 9 total calls.</div>
+
+<div class="trap"><strong>🚫 Trap 4 — print before vs after:</strong><br>
+The order of the <code>print</code> statement relative to the recursive call completely changes the output. Printing before = current value first. Printing after = deepest value first (reversed).</div>
+
+<div class="trap"><strong>🚫 Trap 5 — missing return on recursive case:</strong><br>
+<code>return method(n-1);</code> must have the <code>return</code> keyword. Forgetting it in a <code>return</code>-type method is a compile error. In a <code>void</code> method, no return needed — but the base case still needs to stop further calls.</div>
+
+</div><!-- end t5 -->
+
+<!-- ═══════════════════════ TAB 6: EXCEPTION ═══════════════════════ -->
+<div id="t6" class="topic-tab">
+
+<div class="hero" style="margin-top:20px">
+  <h3>Exception handling — graceful error management</h3>
+  <p>An <strong>exception</strong> is a runtime event that disrupts normal program flow. Java's <code>try-catch-finally</code> lets you handle it gracefully rather than crashing.</p>
+</div>
+
+<h2>Exception class hierarchy — know the tree</h2>
+<div class="cb">Throwable
+├── Error                          <span class="cm">← JVM-level, do NOT catch</span>
+│   ├── StackOverflowError         <span class="cm">← infinite recursion</span>
+│   └── OutOfMemoryError
+└── Exception
+    ├── RuntimeException           <span class="cm">← UNCHECKED (no compile requirement)</span>
+    │   ├── NullPointerException   <span class="cm">← accessing null reference</span>
+    │   ├── ArrayIndexOutOfBoundsException
+    │   ├── ArithmeticException    <span class="cm">← e.g. division by zero</span>
+    │   ├── NumberFormatException  <span class="cm">← bad Integer.parseInt()</span>
+    │   └── ClassCastException     <span class="cm">← invalid downcast</span>
+    └── (direct Exception subclasses)  <span class="cm">← CHECKED (compiler forces handling)</span>
+        ├── IOException
+        └── FileNotFoundException  <span class="cm">← subclass of IOException</span></div>
+
+<h2>Checked vs unchecked — the fundamental split</h2>
+<div class="g2">
+  <div class="card">
+    <span class="badge br">Checked exception</span>
+    <ul style="margin-top:10px;font-size:13px">
+      <li>Extends <code>Exception</code> directly</li>
+      <li>Compiler <strong>forces</strong> you to handle it</li>
+      <li>Must use <code>try-catch</code> <strong>or</strong> declare <code>throws</code></li>
+      <li>Examples: <code>IOException</code>, <code>FileNotFoundException</code></li>
+      <li>Your custom exceptions (extend Exception)</li>
+    </ul>
+  </div>
+  <div class="card">
+    <span class="badge ba">Unchecked exception</span>
+    <ul style="margin-top:10px;font-size:13px">
+      <li>Extends <code>RuntimeException</code></li>
+      <li>Compiler does NOT require handling</li>
+      <li><code>try-catch</code> is optional</li>
+      <li>Examples: <code>NullPointerException</code>, <code>ArithmeticException</code></li>
+      <li>Usually represent programmer mistakes</li>
+    </ul>
+  </div>
+</div>
+
+<h2>try-catch-finally — full syntax</h2>
+<div class="cb"><span class="kw">try</span> {
+    <span class="cm">// Code that might throw an exception</span>
+    <span class="kw">int</span> result = <span class="nm">10</span> / <span class="nm">0</span>;               <span class="cm">// ArithmeticException thrown HERE</span>
+    System.out.<span class="fn">println</span>(<span class="st">"After error"</span>); <span class="cm">// ← NEVER REACHED if exception thrown above</span>
+
+} <span class="kw">catch</span> (ArithmeticException e) {     <span class="cm">// catches only ArithmeticException</span>
+    System.out.<span class="fn">println</span>(<span class="st">"Caught: "</span> + e.<span class="fn">getMessage</span>());
+
+} <span class="kw">catch</span> (Exception e) {              <span class="cm">// catches any remaining Exception</span>
+    System.out.<span class="fn">println</span>(<span class="st">"General: "</span> + e.<span class="fn">getMessage</span>());
+
+} <span class="kw">finally</span> {                           <span class="cm">// ALWAYS runs — no matter what</span>
+    System.out.<span class="fn">println</span>(<span class="st">"Finally block"</span>);
+}</div>
+
+<h2>throw vs throws — critical difference</h2>
+<div class="g2">
+  <div class="card">
+    <span class="badge br">throw</span>
+    <p style="font-size:13px;margin-top:8px">Used inside a method body. <strong>Actually throws</strong> an exception object right now.</p>
+    <div class="cb" style="font-size:12px;margin-top:8px"><span class="kw">throw new</span> ArithmeticException(<span class="st">"/ by zero"</span>);
+<span class="kw">throw new</span> IllegalArgumentException(<span class="st">"Bad input"</span>);</div>
+  </div>
+  <div class="card">
+    <span class="badge ba">throws</span>
+    <p style="font-size:13px;margin-top:8px">Used in method signature. <strong>Declares</strong> that the method <em>might</em> throw that exception.</p>
+    <div class="cb" style="font-size:12px;margin-top:8px"><span class="kw">public void</span> <span class="fn">readFile</span>(String name)
+        <span class="kw">throws</span> IOException { ... }</div>
+  </div>
+</div>
+
+<h2>Custom exceptions — exam pattern</h2>
+<div class="cb"><span class="cm">// Step 1 — Create the exception class</span>
+<span class="kw">public class</span> <span class="cl">InsufficientFundsException</span> <span class="kw">extends</span> <span class="cl">Exception</span> {
+    <span class="kw">public</span> <span class="fn">InsufficientFundsException</span>(String message) {
+        <span class="kw">super</span>(message);   <span class="cm">// passes message to Exception's constructor</span>
+    }
+}
+
+<span class="cm">// Step 2 — Throw it (declare in method signature too)</span>
+<span class="kw">public void</span> <span class="fn">withdraw</span>(<span class="kw">double</span> amount) <span class="kw">throws</span> InsufficientFundsException {
+    <span class="kw">if</span> (amount > balance) {
+        <span class="kw">throw new</span> InsufficientFundsException(<span class="st">"Balance is only "</span> + balance);
+    }
+    balance -= amount;
+}
+
+<span class="cm">// Step 3 — Catch it</span>
+<span class="kw">try</span> {
+    account.<span class="fn">withdraw</span>(<span class="nm">1000</span>);
+} <span class="kw">catch</span> (InsufficientFundsException e) {
+    System.out.<span class="fn">println</span>(e.<span class="fn">getMessage</span>());  <span class="cm">// "Balance is only 500.0"</span>
+}</span></div>
+
+<h2>Multiple catch — ORDER MATTERS</h2>
+<div class="g2">
+  <div>
+    <div class="badge bg" style="margin-bottom:6px">✅ Correct — specific first</div>
+    <div class="cb" style="font-size:12px"><span class="kw">try</span> { ... }
+<span class="kw">catch</span> (FileNotFoundException e) { <span class="cm">// child</span>
+    ...
+}
+<span class="kw">catch</span> (IOException e) {          <span class="cm">// parent</span>
+    ...
+}</div>
+  </div>
+  <div>
+    <div class="badge br" style="margin-bottom:6px">❌ Wrong — compile error</div>
+    <div class="cb" style="font-size:12px"><span class="kw">try</span> { ... }
+<span class="kw">catch</span> (IOException e) {          <span class="cm">// parent catches all</span>
+    ...
+}
+<span class="kw">catch</span> (FileNotFoundException e) { <span class="cm">// unreachable!</span>
+    ...   <span class="cm">// ← COMPILE ERROR</span>
+}</div>
+  </div>
+</div>
+<div class="rule"><strong>Rule:</strong> Always put the <strong>most specific</strong> (child) catch block first, and the <strong>most general</strong> (parent) last. Java tries catch blocks in order, and if a parent catches first, child blocks become unreachable — compile error.</div>
+
+<h2>finally — always runs</h2>
+<div class="rule"><strong>The finally block runs in ALL these cases:</strong><br>
+✅ Exception thrown and caught<br>
+✅ Exception thrown and NOT caught (it runs before the exception propagates up)<br>
+✅ Return statement inside try block<br>
+✅ Return statement inside catch block<br>
+❌ Only skipped by: <code>System.exit()</code> or JVM crash</div>
+
+<h2>4 output tracing examples — practise these</h2>
+
+<h3>Example 1 — basic try-catch-finally</h3>
+<div class="g2">
+  <div class="cb">System.out.<span class="fn">println</span>(<span class="st">"A"</span>);
+<span class="kw">try</span> {
+    System.out.<span class="fn">println</span>(<span class="st">"B"</span>);
+    <span class="kw">int</span> x = <span class="nm">10</span> / <span class="nm">0</span>;  <span class="cm">// throws here</span>
+    System.out.<span class="fn">println</span>(<span class="st">"C"</span>); <span class="cm">// skipped</span>
+} <span class="kw">catch</span> (ArithmeticException e) {
+    System.out.<span class="fn">println</span>(<span class="st">"D"</span>);
+} <span class="kw">finally</span> {
+    System.out.<span class="fn">println</span>(<span class="st">"E"</span>);
+}
+System.out.<span class="fn">println</span>(<span class="st">"F"</span>);</div>
+  <div class="output-box"><span class="out-line">A</span><span class="out-line">B</span><span class="out-line" style="color:#f6ad55">D  ← exception caught</span><span class="out-line" style="color:#68d391">E  ← finally runs</span><span class="out-line">F  ← execution continues</span></div>
+</div>
+
+<h3>Example 2 — exception NOT caught</h3>
+<div class="g2">
+  <div class="cb"><span class="kw">try</span> {
+    System.out.<span class="fn">println</span>(<span class="st">"A"</span>);
+    <span class="kw">int</span>[] arr = <span class="kw">new int</span>[<span class="nm">3</span>];
+    arr[<span class="nm">5</span>] = <span class="nm">10</span>;  <span class="cm">// AIOOBE thrown</span>
+    System.out.<span class="fn">println</span>(<span class="st">"B"</span>);
+} <span class="kw">catch</span> (ArithmeticException e) { <span class="cm">// wrong type!</span>
+    System.out.<span class="fn">println</span>(<span class="st">"C"</span>);
+} <span class="kw">finally</span> {
+    System.out.<span class="fn">println</span>(<span class="st">"D"</span>);
+}</div>
+  <div class="output-box"><span class="out-line">A</span><span class="out-line" style="color:#f6ad55">D  ← finally STILL runs</span><span class="out-line" style="color:#e06c75">then exception propagates (crash)</span><span class="out-line" style="color:#6b6b65">C is never printed</span></div>
+</div>
+
+<h3>Example 3 — return inside try</h3>
+<div class="g2">
+  <div class="cb"><span class="kw">static int</span> <span class="fn">test</span>() {
+    <span class="kw">try</span> {
+        System.out.<span class="fn">println</span>(<span class="st">"A"</span>);
+        <span class="kw">return</span> <span class="nm">1</span>;          <span class="cm">// return scheduled</span>
+    } <span class="kw">finally</span> {
+        System.out.<span class="fn">println</span>(<span class="st">"B"</span>); <span class="cm">// runs before actual return</span>
+    }
+}
+<span class="cm">// Calling: int x = test();</span></div>
+  <div class="output-box"><span class="out-line">A</span><span class="out-line" style="color:#68d391">B  ← finally runs BEFORE return</span><span class="out-line" style="color:#6b6b65">x = 1</span></div>
+</div>
+
+<h3>Example 4 — custom exception flow</h3>
+<div class="g2">
+  <div class="cb"><span class="kw">try</span> {
+    System.out.<span class="fn">println</span>(<span class="st">"A"</span>);
+    <span class="kw">throw new</span> InsufficientFundsException(<span class="st">"Low"</span>);
+    System.out.<span class="fn">println</span>(<span class="st">"B"</span>); <span class="cm">// unreachable</span>
+} <span class="kw">catch</span> (InsufficientFundsException e) {
+    System.out.<span class="fn">println</span>(<span class="st">"C: "</span> + e.<span class="fn">getMessage</span>());
+} <span class="kw">finally</span> {
+    System.out.<span class="fn">println</span>(<span class="st">"D"</span>);
+}</div>
+  <div class="output-box"><span class="out-line">A</span><span class="out-line" style="color:#f6ad55">C: Low</span><span class="out-line" style="color:#68d391">D</span></div>
+</div>
+
+<h2>Exam traps</h2>
+<div class="trap"><strong>🚫 Trap 1 — catch order:</strong><br>
+Parent catch before child catch = compile error ("exception has already been caught"). Always order: most specific (child) first, most general (parent) last.</div>
+
+<div class="trap"><strong>🚫 Trap 2 — finally runs even with return:</strong><br>
+The finally block always executes, even if there's a <code>return</code> in the try or catch. The return is deferred until finally completes.</div>
+
+<div class="trap"><strong>🚫 Trap 3 — wrong catch type = exception escapes:</strong><br>
+If you catch <code>ArithmeticException</code> but the code throws <code>ArrayIndexOutOfBoundsException</code>, the catch block doesn't execute. The finally block still runs, then the exception propagates.</div>
+
+<div class="trap"><strong>🚫 Trap 4 — custom exception must call super(message):</strong><br>
+In a custom exception constructor, forgetting <code>super(message)</code> means <code>e.getMessage()</code> returns null. Always call <code>super(message)</code>.</div>
+
+<div class="tip"><strong>💡 Exam tracing formula for try-catch-finally:</strong><br>
+1. Run try block line by line — stop at the first thrown exception.<br>
+2. Check catch blocks top-to-bottom — first matching type catches it.<br>
+3. If no catch matches, exception escapes (but finally still runs).<br>
+4. Finally block always runs before leaving the try-catch structure.<br>
+5. If exception was caught, execution continues after the entire try-catch-finally.</div>
+
+</div><!-- end t6 -->
+
+<!-- ═══════════════════════ TAB 7: FILES ═══════════════════════ -->
+<div id="t7" class="topic-tab">
+
+<div class="hero" style="margin-top:20px">
+  <h3>Files — reading and writing persistent data</h3>
+  <p>Java uses <strong>streams</strong> to connect your program to files on disk. The two directions are: writing (output stream → file) and reading (file → input stream). All file operations are <strong>checked exceptions</strong> — you must handle <code>IOException</code>.</p>
+</div>
+
+<h2>The key classes — know which does what</h2>
+<table class="ctable">
+  <tr><th>Class</th><th>Direction</th><th>What it does</th><th>Package</th></tr>
+  <tr><td><code>FileWriter</code></td><td>Write</td><td>Opens/creates a file for character writing; supports append mode</td><td>java.io</td></tr>
+  <tr><td><code>PrintWriter</code></td><td>Write</td><td>Wraps FileWriter; provides <code>println()</code>, <code>print()</code>, <code>printf()</code></td><td>java.io</td></tr>
+  <tr><td><code>BufferedWriter</code></td><td>Write</td><td>Wraps FileWriter; buffers writes for performance; use <code>newLine()</code></td><td>java.io</td></tr>
+  <tr><td><code>FileReader</code></td><td>Read</td><td>Opens a file for character reading (rarely used directly)</td><td>java.io</td></tr>
+  <tr><td><code>BufferedReader</code></td><td>Read</td><td>Wraps FileReader; provides <code>readLine()</code>; returns <code>null</code> at EOF</td><td>java.io</td></tr>
+  <tr><td><code>Scanner</code></td><td>Read</td><td>Can wrap a <code>File</code> object; provides <code>nextLine()</code>, <code>nextInt()</code>, etc.</td><td>java.util</td></tr>
+  <tr><td><code>File</code></td><td>Both</td><td>Represents a file path; used to check existence, get name/size</td><td>java.io</td></tr>
+</table>
+
+<h2>Writing to a file — the two patterns</h2>
+
+<h3>Pattern A — PrintWriter (most common in exams)</h3>
+<div class="cb"><span class="kw">import</span> java.io.*;
+
+<span class="kw">try</span> {
+    PrintWriter pw = <span class="kw">new</span> PrintWriter(<span class="kw">new</span> FileWriter(<span class="st">"data.txt"</span>));
+    pw.<span class="fn">println</span>(<span class="st">"First line"</span>);    <span class="cm">// writes text + newline</span>
+    pw.<span class="fn">print</span>(<span class="st">"No newline"</span>);      <span class="cm">// writes text only</span>
+    pw.<span class="fn">println</span>(<span class="nm">42</span>);              <span class="cm">// can write numbers directly</span>
+    pw.<span class="fn">close</span>();                  <span class="cm">// MUST close — flushes buffer to disk</span>
+
+} <span class="kw">catch</span> (IOException e) {
+    System.out.<span class="fn">println</span>(<span class="st">"Error: "</span> + e.<span class="fn">getMessage</span>());
+}</div>
+
+<h3>Pattern B — append mode (add to existing file, don't overwrite)</h3>
+<div class="cb"><span class="kw">try</span> {
+    <span class="cm">// Second argument 'true' = APPEND mode — existing content is kept</span>
+    PrintWriter pw = <span class="kw">new</span> PrintWriter(<span class="kw">new</span> FileWriter(<span class="st">"data.txt"</span>, <span class="kw">true</span>));
+    pw.<span class="fn">println</span>(<span class="st">"This is added to the end"</span>);
+    pw.<span class="fn">close</span>();
+
+} <span class="kw">catch</span> (IOException e) {
+    System.out.<span class="fn">println</span>(<span class="st">"Error: "</span> + e.<span class="fn">getMessage</span>());
+}
+<span class="cm">// Without 'true': new FileWriter("data.txt") OVERWRITES the entire file</span></div>
+
+<h2>Reading from a file — the two patterns</h2>
+
+<h3>Pattern A — Scanner (easiest, most exam-friendly)</h3>
+<div class="cb"><span class="kw">import</span> java.io.*;
+<span class="kw">import</span> java.util.Scanner;
+
+<span class="kw">try</span> {
+    Scanner sc = <span class="kw">new</span> Scanner(<span class="kw">new</span> File(<span class="st">"data.txt"</span>));
+
+    <span class="kw">while</span> (sc.<span class="fn">hasNextLine</span>()) {           <span class="cm">// check if another line exists</span>
+        String line = sc.<span class="fn">nextLine</span>();     <span class="cm">// read the whole line</span>
+        System.out.<span class="fn">println</span>(line);
+    }
+    sc.<span class="fn">close</span>();
+
+} <span class="kw">catch</span> (FileNotFoundException e) {    <span class="cm">// Scanner throws FileNotFoundException</span>
+    System.out.<span class="fn">println</span>(<span class="st">"File not found: "</span> + e.<span class="fn">getMessage</span>());
+}</div>
+
+<h3>Pattern B — BufferedReader (faster for large files)</h3>
+<div class="cb"><span class="kw">try</span> {
+    BufferedReader br = <span class="kw">new</span> BufferedReader(<span class="kw">new</span> FileReader(<span class="st">"data.txt"</span>));
+    String line;
+
+    <span class="kw">while</span> ((line = br.<span class="fn">readLine</span>()) != <span class="kw">null</span>) {  <span class="cm">// readLine() returns null at end of file</span>
+        System.out.<span class="fn">println</span>(line);
+    }
+    br.<span class="fn">close</span>();
+
+} <span class="kw">catch</span> (IOException e) {
+    System.out.<span class="fn">println</span>(<span class="st">"Error: "</span> + e.<span class="fn">getMessage</span>());
+}</div>
+
+<h2>Reading tokens (words/numbers) with Scanner</h2>
+<div class="cb"><span class="kw">try</span> {
+    Scanner sc = <span class="kw">new</span> Scanner(<span class="kw">new</span> File(<span class="st">"numbers.txt"</span>));
+    <span class="cm">// If file contains: "10 20 30"</span>
+
+    <span class="kw">int</span> sum = <span class="nm">0</span>;
+    <span class="kw">while</span> (sc.<span class="fn">hasNextInt</span>()) {    <span class="cm">// check if next token is an integer</span>
+        sum += sc.<span class="fn">nextInt</span>();     <span class="cm">// read the integer</span>
+    }
+    System.out.<span class="fn">println</span>(<span class="st">"Sum = "</span> + sum);   <span class="cm">// Sum = 60</span>
+    sc.<span class="fn">close</span>();
+
+} <span class="kw">catch</span> (FileNotFoundException e) { ... }</div>
+
+<h2>Exception hierarchy for files</h2>
+<div class="cb">IOException                       <span class="cm">← parent — handles any I/O error</span>
+└── FileNotFoundException          <span class="cm">← child — file does not exist</span>
+
+<span class="cm">// FileWriter, BufferedWriter, FileReader, BufferedReader throw IOException</span>
+<span class="cm">// Scanner(File) throws FileNotFoundException (a subclass of IOException)</span>
+
+<span class="cm">// You can catch either:</span>
+<span class="kw">catch</span> (FileNotFoundException e) { ... }  <span class="cm">// specific — file not found</span>
+<span class="kw">catch</span> (IOException e) { ... }           <span class="cm">// general — any I/O problem</span></div>
+
+<h2>Try-with-resources — auto-close pattern</h2>
+<div class="cb"><span class="cm">// Files declared in the try(...) are AUTOMATICALLY closed when the block ends</span>
+<span class="cm">// No need to call .close() manually — cleaner and safer</span>
+<span class="kw">try</span> (PrintWriter pw = <span class="kw">new</span> PrintWriter(<span class="kw">new</span> FileWriter(<span class="st">"out.txt"</span>))) {
+    pw.<span class="fn">println</span>(<span class="st">"Auto-closed when done"</span>);
+    <span class="cm">// pw.close() called automatically here, even if exception occurs</span>
+} <span class="kw">catch</span> (IOException e) {
+    System.out.<span class="fn">println</span>(<span class="st">"Error: "</span> + e.<span class="fn">getMessage</span>());
+}</div>
+
+<h2>File class — checking before reading/writing</h2>
+<div class="cb">File f = <span class="kw">new</span> File(<span class="st">"data.txt"</span>);
+
+f.<span class="fn">exists</span>();          <span class="cm">// true if file exists on disk</span>
+f.<span class="fn">getName</span>();         <span class="cm">// "data.txt"</span>
+f.<span class="fn">getPath</span>();         <span class="cm">// full path</span>
+f.<span class="fn">length</span>();          <span class="cm">// file size in bytes</span>
+f.<span class="fn">delete</span>();          <span class="cm">// deletes the file</span>
+f.<span class="fn">isDirectory</span>();     <span class="cm">// true if it's a folder</span>
+
+<span class="cm">// Common safe-read pattern:</span>
+<span class="kw">if</span> (f.<span class="fn">exists</span>()) {
+    Scanner sc = <span class="kw">new</span> Scanner(f);
+    <span class="cm">// read...</span>
+}</div>
+
+<h2>Common Scanner methods — quick reference</h2>
+<table class="ctable">
+  <tr><th>Method</th><th>Returns</th><th>Reads</th></tr>
+  <tr><td><code>nextLine()</code></td><td>String</td><td>Entire line up to \n</td></tr>
+  <tr><td><code>next()</code></td><td>String</td><td>Next whitespace-delimited token</td></tr>
+  <tr><td><code>nextInt()</code></td><td>int</td><td>Next integer token</td></tr>
+  <tr><td><code>nextDouble()</code></td><td>double</td><td>Next double token</td></tr>
+  <tr><td><code>hasNextLine()</code></td><td>boolean</td><td>Check if more lines exist</td></tr>
+  <tr><td><code>hasNext()</code></td><td>boolean</td><td>Check if more tokens exist</td></tr>
+  <tr><td><code>hasNextInt()</code></td><td>boolean</td><td>Check if next token is int</td></tr>
+</table>
+
+<h2>Full read-and-process example — exam-style</h2>
+<div class="cb"><span class="cm">// Read a file of student names and grades, compute average</span>
+<span class="kw">try</span> {
+    Scanner sc = <span class="kw">new</span> Scanner(<span class="kw">new</span> File(<span class="st">"grades.txt"</span>));
+    <span class="kw">int</span> total = <span class="nm">0</span>, count = <span class="nm">0</span>;
+
+    <span class="kw">while</span> (sc.<span class="fn">hasNextLine</span>()) {
+        String name  = sc.<span class="fn">next</span>();       <span class="cm">// read first token on line</span>
+        <span class="kw">int</span> grade = sc.<span class="fn">nextInt</span>();        <span class="cm">// read second token as int</span>
+        total += grade;
+        count++;
+    }
+    sc.<span class="fn">close</span>();
+    System.out.<span class="fn">println</span>(<span class="st">"Average: "</span> + (<span class="kw">double</span>) total / count);
+
+} <span class="kw">catch</span> (FileNotFoundException e) {
+    System.out.<span class="fn">println</span>(<span class="st">"File not found"</span>);
+}</div>
+
+<h2>Exam traps</h2>
+
+<div class="trap"><strong>🚫 Trap 1 — forgetting to close:</strong><br>
+Not calling <code>.close()</code> means data may never be flushed from the buffer to disk. The file on disk could appear empty or incomplete. Always close, or use try-with-resources.</div>
+
+<div class="trap"><strong>🚫 Trap 2 — overwrite vs append:</strong><br>
+<code>new FileWriter("file.txt")</code> silently <strong>deletes all existing content</strong> and starts fresh. To preserve existing content, use <code>new FileWriter("file.txt", true)</code>. This is a classic one-mark exam question.</div>
+
+<div class="trap"><strong>🚫 Trap 3 — readLine() returns null, not empty string:</strong><br>
+When BufferedReader reaches end of file, <code>readLine()</code> returns <code>null</code> — not <code>""</code>. The correct loop condition is <code>while ((line = br.readLine()) != null)</code>, not <code>while (!line.equals(""))</code>.</div>
+
+<div class="trap"><strong>🚫 Trap 4 — mixing nextLine() with nextInt():</strong><br>
+After <code>sc.nextInt()</code>, the newline character is left in the buffer. The next <code>sc.nextLine()</code> reads that leftover newline and returns an empty string. Fix: call an extra <code>sc.nextLine()</code> to consume the newline after each <code>nextInt()</code>.</div>
+
+<div class="trap"><strong>🚫 Trap 5 — Scanner(File) vs Scanner(System.in):</strong><br>
+<code>new Scanner(new File("data.txt"))</code> → reads from a file (throws FileNotFoundException).<br>
+<code>new Scanner(System.in)</code> → reads from keyboard (no exception).<br>
+Mixing these up is a common mistake — always check what the Scanner is wrapping.</div>
+
+<div class="tip"><strong>💡 Exam tip — which exception to catch:</strong><br>
+If the question uses <code>Scanner(File)</code> → catch <code>FileNotFoundException</code>.<br>
+If it uses <code>FileWriter</code>, <code>FileReader</code>, <code>BufferedReader</code> → catch <code>IOException</code>.<br>
+Catching <code>IOException</code> always works (it's the parent), but being specific is better style and more likely what the exam expects.</div>
+
+</div><!-- end t7 -->
+
+<!-- ═══════════════════════ TAB 8: LINKED LIST ═══════════════════════ -->
+<div id="t8" class="topic-tab">
+
+<div class="hero" style="margin-top:20px">
+  <h3>Linked List — dynamic chain of nodes</h3>
+  <p>A linked list is a sequence of <strong>Node</strong> objects where each node holds a value and a reference to the next node. Unlike arrays, size is dynamic and insertion/deletion does not require shifting elements.</p>
+</div>
+
+<h2>Structure — two classes you always write</h2>
+<div class="g2">
+  <div class="card">
+    <span class="badge bb">Node class</span>
+    <div class="cb" style="margin-top:10px"><span class="kw">public class</span> <span class="cl">Node</span> {
+    <span class="kw">private int</span> data;
+    <span class="kw">private</span> Node next; <span class="cm">// reference to next node</span>
+
+    <span class="kw">public</span> <span class="fn">Node</span>(<span class="kw">int</span> data) {
+        <span class="kw">this</span>.data = data;
+        next = <span class="kw">null</span>; <span class="cm">// new node points nowhere</span>
+    }
+
+    <span class="kw">public int</span>  <span class="fn">getData</span>()           { <span class="kw">return</span> data; }
+    <span class="kw">public</span> Node <span class="fn">getNext</span>()           { <span class="kw">return</span> next; }
+    <span class="kw">public void</span> <span class="fn">setNext</span>(Node n)    { next = n; }
+}</div>
+  </div>
+  <div class="card">
+    <span class="badge bp">LinkedList class</span>
+    <div class="cb" style="margin-top:10px"><span class="kw">public class</span> <span class="cl">LinkedList</span> {
+    <span class="kw">private</span> Node head;   <span class="cm">// first node (or null if empty)</span>
+    <span class="kw">private int</span> size;    <span class="cm">// optional but useful</span>
+
+    <span class="kw">public</span> <span class="fn">LinkedList</span>() {
+        head = <span class="kw">null</span>;
+        size = <span class="nm">0</span>;
+    }
+
+    <span class="kw">public boolean</span> <span class="fn">isEmpty</span>() {
+        <span class="kw">return</span> head == <span class="kw">null</span>;
+    }
+    <span class="kw">public int</span> <span class="fn">getSize</span>() { <span class="kw">return</span> size; }
+}</div>
+  </div>
+</div>
+
+<h2>Visualising the list — always draw this first</h2>
+<div class="cb"><span class="cm">// head → [10|•]─→[20|•]─→[30|null]</span>
+<span class="cm">//          ↑         ↑         ↑</span>
+<span class="cm">//        Node      Node      Node (tail — next is null)</span>
+<span class="cm">//       data=10  data=20  data=30</span>
+
+<span class="cm">// Empty list: head → null</span></div>
+
+<h2>Operation 1 — addFirst (insert at head)</h2>
+<div class="cb"><span class="kw">public void</span> <span class="fn">addFirst</span>(<span class="kw">int</span> data) {
+    Node newNode = <span class="kw">new</span> Node(data);
+    newNode.<span class="fn">setNext</span>(head);   <span class="cm">// ① new node points to OLD head</span>
+    head = newNode;           <span class="cm">// ② head now points to new node</span>
+    size++;
+}</div>
+<div class="trace-box">
+  <div class="label">Visual trace — addFirst(5) on list [10]→[20]→null</div>
+  <div class="tr"><span>Before:</span> <span>head → [10|•]→[20|null]</span></div>
+  <div class="tr"><span>① newNode.setNext(head):</span> <span>[5|•]→[10|•]→[20|null]&nbsp;&nbsp;(new node linked in)</span></div>
+  <div class="tr tr-ret"><span>② head = newNode:</span> <span class="rv">head → [5|•]→[10|•]→[20|null]</span></div>
+</div>
+<div class="trap"><strong>🚫 ORDER MATTERS:</strong> You MUST do step ① (link new node to old head) BEFORE step ② (update head). If you do ② first, you lose the reference to the rest of the list forever.</div>
+
+<h2>Operation 2 — addLast (insert at tail)</h2>
+<div class="cb"><span class="kw">public void</span> <span class="fn">addLast</span>(<span class="kw">int</span> data) {
+    Node newNode = <span class="kw">new</span> Node(data);
+    <span class="kw">if</span> (head == <span class="kw">null</span>) {           <span class="cm">// empty list — new node becomes head</span>
+        head = newNode;
+        size++;
+        <span class="kw">return</span>;
+    }
+    Node current = head;
+    <span class="kw">while</span> (current.<span class="fn">getNext</span>() != <span class="kw">null</span>) {   <span class="cm">// walk to the LAST node</span>
+        current = current.<span class="fn">getNext</span>();
+    }
+    current.<span class="fn">setNext</span>(newNode);     <span class="cm">// last node now points to new node</span>
+    size++;
+}</div>
+<div class="rule"><strong>Finding the last node:</strong> The loop stops when <code>current.getNext() == null</code> — that means <code>current</code> IS the last node. Then we set its <code>next</code> to the new node.</div>
+
+<h2>Operation 3 — display (traverse)</h2>
+<div class="cb"><span class="kw">public void</span> <span class="fn">display</span>() {
+    Node current = head;             <span class="cm">// start at the head</span>
+    <span class="kw">while</span> (current != <span class="kw">null</span>) {       <span class="cm">// keep going until end of list</span>
+        System.out.<span class="fn">print</span>(current.<span class="fn">getData</span>() + <span class="st">" "</span>);
+        current = current.<span class="fn">getNext</span>(); <span class="cm">// advance to next node</span>
+    }
+    System.out.<span class="fn">println</span>();
+}
+<span class="cm">// NEVER do: head = head.getNext() — that would destroy the list!</span>
+<span class="cm">// ALWAYS use a separate 'current' pointer for traversal</span></div>
+
+<h2>Operation 4 — contains / search</h2>
+<div class="cb"><span class="kw">public boolean</span> <span class="fn">contains</span>(<span class="kw">int</span> val) {
+    Node current = head;
+    <span class="kw">while</span> (current != <span class="kw">null</span>) {
+        <span class="kw">if</span> (current.<span class="fn">getData</span>() == val) <span class="kw">return true</span>;  <span class="cm">// found</span>
+        current = current.<span class="fn">getNext</span>();
+    }
+    <span class="kw">return false</span>;    <span class="cm">// reached end without finding it</span>
+}</div>
+
+<h2>Operation 5 — removeFirst</h2>
+<div class="cb"><span class="kw">public void</span> <span class="fn">removeFirst</span>() {
+    <span class="kw">if</span> (head == <span class="kw">null</span>) <span class="kw">return</span>;   <span class="cm">// empty list — nothing to remove</span>
+    head = head.<span class="fn">getNext</span>();       <span class="cm">// head skips over the first node</span>
+    size--;                        <span class="cm">// old head is now unreferenced → garbage collected</span>
+}</div>
+
+<h2>Operation 6 — remove by value</h2>
+<div class="cb"><span class="kw">public void</span> <span class="fn">remove</span>(<span class="kw">int</span> val) {
+    <span class="kw">if</span> (head == <span class="kw">null</span>) <span class="kw">return</span>;
+
+    <span class="cm">// Special case: target is the head node</span>
+    <span class="kw">if</span> (head.<span class="fn">getData</span>() == val) {
+        head = head.<span class="fn">getNext</span>();
+        size--;
+        <span class="kw">return</span>;
+    }
+    <span class="cm">// General case: walk list keeping track of the node BEFORE the target</span>
+    Node current = head;
+    <span class="kw">while</span> (current.<span class="fn">getNext</span>() != <span class="kw">null</span>) {
+        <span class="kw">if</span> (current.<span class="fn">getNext</span>().<span class="fn">getData</span>() == val) {
+            current.<span class="fn">setNext</span>(current.<span class="fn">getNext</span>().<span class="fn">getNext</span>()); <span class="cm">// ← bypass target node</span>
+            size--;
+            <span class="kw">return</span>;
+        }
+        current = current.<span class="fn">getNext</span>();
+    }
+    <span class="cm">// If we reach here, val was not found</span>
+}</div>
+
+<div class="trace-box">
+  <div class="label">Visual trace — remove(20) from [10]→[20]→[30]→null</div>
+  <div class="tr"><span>Before:</span> <span>head → [10|•]→[20|•]→[30|null]</span></div>
+  <div class="tr"><span>current = [10], current.getNext() = [20], getData() == 20 ✅</span></div>
+  <div class="tr tr-ret"><span>current.setNext(current.getNext().getNext()):</span> <span class="rv">head → [10|•]→[30|null]  (node [20] bypassed)</span></div>
+</div>
+
+<h2>Operation 7 — count / size by traversal</h2>
+<div class="cb"><span class="kw">public int</span> <span class="fn">countNodes</span>() {
+    <span class="kw">int</span> count = <span class="nm">0</span>;
+    Node current = head;
+    <span class="kw">while</span> (current != <span class="kw">null</span>) {
+        count++;
+        current = current.<span class="fn">getNext</span>();
+    }
+    <span class="kw">return</span> count;
+}</div>
+
+<h2>Recursive operations on linked list</h2>
+<p>A linked list is naturally recursive: a list is either empty (null) or a node + the rest of the list. Exam questions often ask you to implement these recursively.</p>
+
+<h3>Count nodes recursively</h3>
+<div class="cb"><span class="kw">public int</span> <span class="fn">countRec</span>(Node node) {
+    <span class="kw">if</span> (node == <span class="kw">null</span>) <span class="kw">return</span> <span class="nm">0</span>;               <span class="cm">// base: empty list</span>
+    <span class="kw">return</span> <span class="nm">1</span> + <span class="fn">countRec</span>(node.<span class="fn">getNext</span>());       <span class="cm">// 1 + count of rest</span>
+}
+<span class="cm">// Call: countRec(head)</span></div>
+
+<h3>Search recursively</h3>
+<div class="cb"><span class="kw">public boolean</span> <span class="fn">searchRec</span>(Node node, <span class="kw">int</span> val) {
+    <span class="kw">if</span> (node == <span class="kw">null</span>) <span class="kw">return false</span>;            <span class="cm">// base: not found</span>
+    <span class="kw">if</span> (node.<span class="fn">getData</span>() == val) <span class="kw">return true</span>;    <span class="cm">// base: found it</span>
+    <span class="kw">return</span> <span class="fn">searchRec</span>(node.<span class="fn">getNext</span>(), val);     <span class="cm">// recurse on rest</span>
+}
+<span class="cm">// Call: searchRec(head, targetValue)</span></div>
+
+<h3>Display recursively</h3>
+<div class="cb"><span class="kw">public void</span> <span class="fn">displayRec</span>(Node node) {
+    <span class="kw">if</span> (node == <span class="kw">null</span>) { System.out.<span class="fn">println</span>(); <span class="kw">return</span>; }  <span class="cm">// base</span>
+    System.out.<span class="fn">print</span>(node.<span class="fn">getData</span>() + <span class="st">" "</span>);            <span class="cm">// print current</span>
+    <span class="fn">displayRec</span>(node.<span class="fn">getNext</span>());                         <span class="cm">// recurse on rest</span>
+}
+<span class="cm">// Call: displayRec(head)</span>
+
+<span class="cm">// To print in REVERSE — print AFTER the recursive call:</span>
+<span class="kw">public void</span> <span class="fn">displayReverse</span>(Node node) {
+    <span class="kw">if</span> (node == <span class="kw">null</span>) <span class="kw">return</span>;
+    <span class="fn">displayReverse</span>(node.<span class="fn">getNext</span>());    <span class="cm">// recurse first</span>
+    System.out.<span class="fn">print</span>(node.<span class="fn">getData</span>() + <span class="st">" "</span>);  <span class="cm">// print after (reversed)</span>
+}</div>
+
+<h3>Sum of all values recursively</h3>
+<div class="cb"><span class="kw">public int</span> <span class="fn">sumRec</span>(Node node) {
+    <span class="kw">if</span> (node == <span class="kw">null</span>) <span class="kw">return</span> <span class="nm">0</span>;               <span class="cm">// base: empty = 0</span>
+    <span class="kw">return</span> node.<span class="fn">getData</span>() + <span class="fn">sumRec</span>(node.<span class="fn">getNext</span>());
+}
+<span class="cm">// Call: sumRec(head)</span></div>
+
+<h2>Generic linked list (if required)</h2>
+<div class="cb"><span class="kw">public class</span> <span class="cl">Node</span>&lt;T&gt; {
+    <span class="kw">private</span> T data;
+    <span class="kw">private</span> Node&lt;T&gt; next;
+
+    <span class="kw">public</span> <span class="fn">Node</span>(T data) { <span class="kw">this</span>.data = data; next = <span class="kw">null</span>; }
+    <span class="kw">public</span> T      <span class="fn">getData</span>()        { <span class="kw">return</span> data; }
+    <span class="kw">public</span> Node&lt;T&gt; <span class="fn">getNext</span>()      { <span class="kw">return</span> next; }
+    <span class="kw">public void</span>   <span class="fn">setNext</span>(Node&lt;T&gt; n) { next = n; }
+}
+<span class="cm">// Usage: Node&lt;String&gt; n = new Node&lt;&gt;("Alice");</span>
+<span class="cm">//        Node&lt;SmartDevice&gt; n2 = new Node&lt;&gt;(new Light(...));</span></div>
+
+<h2>Exam traps</h2>
+
+<div class="trap"><strong>🚫 Trap 1 — wrong pointer order in addFirst:</strong><br>
+Always <code>newNode.setNext(head)</code> <em>before</em> <code>head = newNode</code>. If you update head first, you lose the original list and cannot link the new node to it.</div>
+
+<div class="trap"><strong>🚫 Trap 2 — advancing the head pointer during traversal:</strong><br>
+Never write <code>head = head.getNext()</code> to traverse — you permanently destroy the list. Always use a separate <code>current</code> variable: <code>Node current = head;</code> then advance <code>current</code>.</div>
+
+<div class="trap"><strong>🚫 Trap 3 — not handling the empty list:</strong><br>
+Every method that touches <code>head</code> should check <code>if (head == null)</code> first. Operations like <code>removeFirst()</code>, <code>addLast()</code>, and <code>display()</code> all need this guard, otherwise you get a NullPointerException.</div>
+
+<div class="trap"><strong>🚫 Trap 4 — remove needs TWO node references:</strong><br>
+To remove a node from the middle, you need to find the node <em>before</em> it. The loop condition is <code>current.getNext() != null</code> (checking one ahead), not <code>current != null</code>.</div>
+
+<div class="trap"><strong>🚫 Trap 5 — recursive linked list: parameter is Node, not int:</strong><br>
+Recursive linked list methods take a <code>Node</code> parameter (the current node), not an index. The base case is always <code>if (node == null)</code>. Call the method with <code>head</code> as the starting argument.</div>
+
+<div class="tip"><strong>💡 Exam tip — drawing before coding:</strong><br>
+For any linked list question, draw boxes and arrows FIRST. Label each node and each pointer (head, current, newNode). Then translate your drawing into code step by step. This eliminates almost all pointer-order mistakes.</div>
+
+<div class="ok"><strong>✅ Pattern summary — three traversal templates:</strong><br>
+1. <strong>Print/process all:</strong> <code>while (current != null) { do work; current = current.getNext(); }</code><br>
+2. <strong>Find last node:</strong> <code>while (current.getNext() != null) { current = current.getNext(); }</code><br>
+3. <strong>Find node before target:</strong> <code>while (current.getNext() != null) { if (current.getNext().getData()==val) { ...fix pointers... } current = current.getNext(); }</code></div>
+
+</div><!-- end t8 -->
+
+</div><!-- .page -->
+
+<script>
+function sw(n) {
+  for (let i = 1; i <= 8; i++) {
+    var tab = document.getElementById('t' + i);
+    var btn = document.getElementById('b' + i);
+    if (tab) tab.className = 'topic-tab' + (i === n ? ' active' : '');
+    if (btn) btn.className = 'tb' + (i === n ? ' on' : '');
+  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
