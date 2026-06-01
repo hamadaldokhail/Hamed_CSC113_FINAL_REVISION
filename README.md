@@ -1,2 +1,2 @@
 # Hamed_CSC113_FINAL_REVISION
-A simple HTML pgae revision for the csc113 final exam
+A simple HTML pgae revision for the csc113 final exam, it covers all of the fina topic, the level refrence is the mid term exam, its not enogh for studieng, but its good for a quick revesion and a heads up for some tricks...
